@@ -17,11 +17,11 @@
 
 ###	operations:
 
-1.	compliment [`~`]
+1.	compliment `~`
 
-2.	and 	[`&`]
+2.	and 	`&`
 
-3.	or 		[`|`]
+3.	or 		`|`
 
 4.	biswise operations like `>, <, >>>`
 
