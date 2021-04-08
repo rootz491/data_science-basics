@@ -29,7 +29,7 @@
 mathematical operations: [here](https://docs.julialang.org/en/v1/manual/mathematical-operations/)
 
 
-#### functions
+### functions:
 
 1.	traditional method:
 ```julia
@@ -52,4 +52,80 @@ something = sum
 something(5,10)
 ```
 
+####	sample code
+```julia
+function hello()
+   print("enter name: ")
+   name = readline()
+   println("Hello, "+name)
+end
+```
+
+*	output
+```text
+julia> hello()
+enter name: karan sharma
+Hello, karan sharma
+```
+
+
+####	input data
+
+*	to input a string:
+```julia
+var = readline()
+```
+
+*	to read a number:
+```julia
+num = parse(Int64, readline())
+```
+
+
+####	loop
+
+*	while
+```julia
+while(true)
+	print("Go to hell")
+end
+```
+
+
+####	conditional
+
+*	if else
+```julia
+if(num%2==0)
+	println("even")
+else
+	println("odd")
+end
+```
+
+
+####	types of function
+
+*	User-defined function
+*	Parameteric function
+
+
+####	Forms of function
+
+*	No arguments, no return value
+*	No arguments, return value
+*	Arguments, no return value
+*	Arguments, return value
+
+
+
+```julia
+function sumData()
+	println("Enter first number")
+	n1 = parse(Int64, readline())
+	println("Enter second number")
+	n2 = parse(Int64, readline())	
+	return n1 + n2
+end
+```
 
