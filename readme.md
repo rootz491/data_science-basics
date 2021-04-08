@@ -129,3 +129,27 @@ function sumData()
 end
 ```
 
+#####	return multiple values from function
+
+```julia
+julia> function addMultiply(a, b)
+               return a+b, a*b
+       end
+addMultiply (generic function with 1 method)
+
+julia> a = 10
+10
+
+julia> b = 5
+5
+
+julia> a, b = addMultiply(a,b)
+(15, 50)
+
+julia> a
+15
+
+julia> b
+50
+```
+
