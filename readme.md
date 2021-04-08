@@ -29,46 +29,6 @@
 mathematical operations: [here](https://docs.julialang.org/en/v1/manual/mathematical-operations/)
 
 
-### functions:
-
-1.	traditional method:
-```julia
-function sum(a,b)
-	a+b
-end
-```
-
-2.	new method:
-```julia
-sum(a,b) = a+b
-```
-
-*	assignment of function object
-```julia
-something = sum
-```
-*	now assigned object will work same
-```julia
-something(5,10)
-```
-
-####	sample code
-```julia
-function hello()
-   print("enter name: ")
-   name = readline()
-   println("Hello, "+name)
-end
-```
-
-*	output
-```text
-julia> hello()
-enter name: karan sharma
-Hello, karan sharma
-```
-
-
 ####	input data
 
 *	to input a string:
@@ -101,6 +61,30 @@ if(num%2==0)
 else
 	println("odd")
 end
+```
+
+
+### functions:
+
+1.	traditional method:
+```julia
+function sum(a,b)
+	a+b
+end
+```
+
+2.	new method:
+```julia
+sum(a,b) = a+b
+```
+
+*	assignment of function object
+```julia
+something = sum
+```
+*	now assigned object will work same
+```julia
+something(5,10)
 ```
 
 
@@ -152,4 +136,37 @@ julia> a
 julia> b
 50
 ```
+
+
+
+####	keyword argument
+
+*	when we have multiple number of arguments and can't maintain order of arguments while calling then we can use **keyword argument**.
+
+```julia
+julia> function plot(x, y; width=10, height=10)
+               println("x: ",x)
+               println("y: ",y)
+               println("H*W: ",width*height)
+       end
+plot (generic function with 1 method)
+
+julia> plot(.5, 8)
+x: 0.5
+y: 8
+H*W: 100
+
+julia> plot(.5, 8, width=20)
+x: 0.5
+y: 8
+H*W: 200
+```
+
+*	here we have to pass `x` & `y` as arguments (compulsory) but it's not manditory to pass the other two i.e. width & height!
+
+*	we've already provided default values for `width` & `height` arguments. 
+
+*	so if we want to pass them as argument then we have to tell explicity that which of the optional argument has been passed.
+
+*	order is flexible i.e.	it doesn't matter if we change the order of argument (only in terms of optional arguments).
 
