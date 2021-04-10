@@ -170,3 +170,85 @@ H*W: 200
 
 *	order is flexible i.e.	it doesn't matter if we change the order of argument (only in terms of optional arguments).
 
+###	File handling
+
+*	open a file
+
+```julia
+f = open('filename.ext')
+```
+
+*	close a file
+
+```julia
+close(f)
+```
+
+*	to read data from file
+
+```julia
+read(fileObject, String)
+```
+
+*	to open a file then read, and close at same time
+
+```julia
+open("filename.txt") do f1 
+	println(reaf(f1, String))
+end
+```
+
+*	time to read file and no. of lines in files
+
+```julia
+tt, t1 = open("filename.txt") do f2
+	lc = 0
+	timeTaken = @elapsed for r in eachline(f2)
+		lc+=1
+	end
+	(timeTaken, lc)
+end
+```
+
+*	to read line by line
+
+```julia
+open("filename.txt") do f3
+	for i in readlines(f3)
+		print(i)
+	end
+end
+```
+
+
+*	to write to file
+
+```julia
+using 
+open("filename.txt", "w") do f
+	writedl(f, [name, age])
+end
+```
+
+```julia
+file = open("file.txt", "w")
+write(file, "hello world")
+```
+
+
+*	question: 	read data from a file & write into other file
+
+```julia
+f = open("exp.txt")
+of = open("otherFile.txt", "w")
+
+for i in readlines(f)
+   write(of, i)
+end
+
+close(f)
+close(of)
+```
+
+
+
