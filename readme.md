@@ -259,4 +259,19 @@ close(of)
 ```
 
 
+*	reading a xlxs (excel) file
+
+```julia
+using pkg
+pkg.add("XLSX")
+import XLSX
+XLSX.openxlsx("file.xlsx") do f
+	sh = file["sheet1"]
+	for i in XLSX.reachrow(f)
+		print(i)
+	end
+end
+```
+
+
 
