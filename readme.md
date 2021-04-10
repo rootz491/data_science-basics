@@ -220,6 +220,14 @@ open("filename.txt") do f3
 end
 ```
 
+```julia
+open("filename.txt") do f3
+	for i in eachline(f3)
+		print(i)
+	end
+end
+```
+
 
 *	to write to file
 
