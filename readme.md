@@ -274,4 +274,11 @@ end
 ```
 
 
+##	DataFrames
+
+there are bunch of methods here, 
+just look into file named `dataFrame*.jl`
+
+
+
 
