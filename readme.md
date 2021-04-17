@@ -277,8 +277,40 @@ end
 ##	DataFrames
 
 there are bunch of methods here, 
-just look into file named `dataFrame*.jl`
+just look into file named `dataFrameExp.jl`
 
 
+
+##	read data from dataset
+
+####	XLSX file:		
+
+> read this file: `terminal-julia-run.txt`
+
+```julia
+using XLSX
+
+data = XLSX.readxlsx('/path/to/file.xlsx')
+
+sheetname = XLSX.sheetnames(data)
+
+ref = data[sheetname]
+
+# to get data
+
+print(ref[1,5])
+
+print(ref["A2:E6"])
+
+XLSX.readdata("/path/to/file.xlsx", "sheetname", "A2:E10
+
+using DataFrames
+
+d = DataFrame(XLSX.readtable("/path/to/file.xlsx", "sheetname")...)
+
+d[10, :]
+
+d[1:20, :]
+```
 
 

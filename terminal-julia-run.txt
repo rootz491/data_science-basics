@@ -1,0 +1,123 @@
+Last login: Sat Apr 17 18:40:20 on ttys000
+rootz@karans-MacBook-Air data science % julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.5.4 (2021-03-11)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> using XLSX
+[ Info: Precompiling XLSX [fdbf4ff8-1666-58a4-91e7-1b58723a45e0]
+
+
+
+julia> data = XLSX.readxlsx("Data Refresh Sample Data.xlsx")
+XLSXFile("Data Refresh Sample Data.xlsx") containing 3 Worksheets
+            sheetname size          range        
+-------------------------------------------------
+               Sheet1 23x5          A1:E23       
+               Sheet2 1x1           A1:A1        
+               Sheet3 1x1           A1:A1        
+
+
+julia> sn = XLSX.sheetnames(data)
+3-element Array{String,1}:
+ "Sheet1"
+ "Sheet2"
+ "Sheet3"
+
+julia> sn
+3-element Array{String,1}:
+ "Sheet1"
+ "Sheet2"
+ "Sheet3"
+
+julia> sn[1]
+"Sheet1"
+
+julia> s1 = data[sn[1]]
+23×5 XLSX.Worksheet: ["Sheet1"](A1:E23)
+
+julia> s1
+23×5 XLSX.Worksheet: ["Sheet1"](A1:E23)
+
+julia> s1[1,5]
+"Customer Name"
+
+julia> 
+julia> s1["A1:E6"]
+6×5 Array{Any,2}:
+ "Ship Mode"           "Profit"     "Unit Price"    "Shipping Cost"  "Customer Name"
+ "Regular Air"     -213.25        38.94           35                 "Muhammed MacIntyre"
+ "Delivery Truck"   457.81       208.16           68.02              "Barry French"
+ "Regular Air"       46.7075       8.69            2.99              "Barry French"
+ "Regular Air"     1198.97       195.99            3.99              "Clay Rozendal"
+ "Regular Air"       -4.715        5.28            2.99              "Claudia Miner"
+
+julia> s1["A1:F6"]
+6×6 Array{Any,2}:
+ "Ship Mode"           "Profit"     "Unit Price"  …  "Customer Name"       missing
+ "Regular Air"     -213.25        38.94              "Muhammed MacIntyre"  missing
+ "Delivery Truck"   457.81       208.16              "Barry French"        missing
+ "Regular Air"       46.7075       8.69              "Barry French"        missing
+ "Regular Air"     1198.97       195.99              "Clay Rozendal"       missing
+ "Regular Air"       -4.715        5.28           …  "Claudia Miner"       missing
+
+julia> s1["A1:E6"]
+6×5 Array{Any,2}:
+ "Ship Mode"           "Profit"     "Unit Price"    "Shipping Cost"  "Customer Name"
+ "Regular Air"     -213.25        38.94           35                 "Muhammed MacIntyre"
+ "Delivery Truck"   457.81       208.16           68.02              "Barry French"
+ "Regular Air"       46.7075       8.69            2.99              "Barry French"
+ "Regular Air"     1198.97       195.99            3.99              "Clay Rozendal"
+ "Regular Air"       -4.715        5.28            2.99              "Claudia Miner"
+
+julia> s1["A2:E6"]
+5×5 Array{Any,2}:
+ "Regular Air"     -213.25     38.94  35     "Muhammed MacIntyre"
+ "Delivery Truck"   457.81    208.16  68.02  "Barry French"
+ "Regular Air"       46.7075    8.69   2.99  "Barry French"
+ "Regular Air"     1198.97    195.99   3.99  "Clay Rozendal"
+ "Regular Air"       -4.715     5.28   2.99  "Claudia Miner"
+
+julia> using DataFrames
+
+julia> d = DataFrame(XLSX.readtable("Data Refresh Sample Data.xlsx", "Sheet1")...)
+22×5 DataFrame
+ Row │ Ship Mode       Profit    Unit Price  Shipping Cost  Customer Name      
+     │ Any             Any       Any         Any            Any                
+─────┼─────────────────────────────────────────────────────────────────────────
+   1 │ Regular Air     -213.25   38.94       35             Muhammed MacIntyre
+   2 │ Delivery Truck  457.81    208.16      68.02          Barry French
+   3 │ Regular Air     46.7075   8.69        2.99           Barry French
+   4 │ Regular Air     1198.97   195.99      3.99           Clay Rozendal
+   5 │ Regular Air     -4.715    5.28        2.99           Claudia Miner
+   6 │ Regular Air     782.91    39.89       3.04           Neola Schneider
+   7 │ Regular Air     93.8      15.74       1.39           Allen Rosenblatt
+   8 │ Delivery Truck  440.72    100.98      26.22          Sylvia Foulston
+   9 │ Regular Air     -481.041  100.98      69             Sylvia Foulston
+  10 │ Regular Air     -11.682   65.99       5.26           Jim Radford
+  11 │ Regular Air     313.578   155.99      8.99           Jim Radford
+  12 │ Express Air     26.92     3.69        0.5            Carlos Soltero
+  13 │ Regular Air     -5.77     4.71        0.7            Carlos Soltero
+  14 │ Regular Air     -172.88   15.99       13.18          Carl Ludwig
+  15 │ Regular Air     -144.55   4.89        4.93           Carl Ludwig
+  16 │ Regular Air     5.76      2.88        0.7            Don Miller
+  17 │ Regular Air     252.66    40.96       1.99           Jack Garza
+  18 │ Delivery Truck  -1766.01  95.95       74.35          Julia West
+  19 │ Regular Air     -236.268  3.89        7.01           Eugene Barchas
+  20 │ Delivery Truck  80.44     120.98      30             Eugene Barchas
+  21 │ Regular Air     118.94    500.98      5.76           Eugene Barchas
+  22 │ Delivery Truck  3424.22   500.98      26             Edward Hooks
+
+julia> d[10, :]
+DataFrameRow
+ Row │ Ship Mode    Profit   Unit Price  Shipping Cost  Customer Name 
+     │ Any          Any      Any         Any            Any           
+─────┼────────────────────────────────────────────────────────────────
+  10 │ Regular Air  -11.682  65.99       5.26           Jim Radford
+
+
