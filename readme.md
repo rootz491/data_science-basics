@@ -273,6 +273,12 @@ XLSX.openxlsx("file.xlsx") do f
 end
 ```
 
+DataFrame(XLSX.readtable("Data Refresh Sample Data.xlsx", "Sheet1")...) do f
+	for i in f
+		print(i)
+	end
+end
+
 
 ##	DataFrames
 
@@ -285,7 +291,7 @@ just look into file named `dataFrameExp.jl`
 
 ####	XLSX file:		
 
-> read this file: `terminal-julia-run.txt`
+> read this file: `terminal-julia-run.txt` & `dataFrameExp2.jl`
 
 ```julia
 using XLSX
@@ -312,5 +318,159 @@ d[10, :]
 
 d[1:20, :]
 ```
+
+##	Database
+
+>	going to do some CRUD on MySQL via julia.
+
+
+
+```mysql
+
+mysql> CREATE DATABASE example;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE example;
+Database changed
+
+mysql> CREATE TABLE user (name varchar(30) PRIMARY KEY, gender varchar(1) NOT NULL);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_example |
++-------------------+
+| user              |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> DESC user;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(30) | NO   | PRI | NULL    |       |
+| gender | varchar(1)  | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> INSERT INTO user VALUES("Karan Sharma", "M");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> CREATE TABLE student(name varchar(30), rollno int, address text, course varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO student VALUES("Karan Sharma", 39, "Dehradun", "BCA");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM student;
++--------------+--------+----------+--------+
+| name         | rollno | address  | course |
++--------------+--------+----------+--------+
+| NULL         |   NULL | NULL     | NULL   |
+| Karan Sharma |     39 | Dehradun | BCA    |
++--------------+--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO student VALUES("Nikhil Swain", 43, "Odisa", "BCA");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO student VALUES("Sudhanshu Rajdhur", 73, "UP", "BCA");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM student WHERE name IS NOT NULL;
++-------------------+--------+----------+--------+
+| name              | rollno | address  | course |
++-------------------+--------+----------+--------+
+| Karan Sharma      |     39 | Dehradun | BCA    |
+| Nikhil Swain      |     43 | Odisa    | BCA    |
+| Sudhanshu Rajdhur |     73 | UP       | BCA    |
++-------------------+--------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE student ADD age INT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DELETE FROM student WHERE name IS NULL;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> UPDATE student SET name = "Karan" WHERE rollno = 39;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM student;
++-------------------+--------+----------+--------+------+
+| name              | rollno | address  | course | age  |
++-------------------+--------+----------+--------+------+
+| Karan             |     39 | Dehradun | BCA    | NULL |
+| Nikhil Swain      |     43 | Odisa    | BCA    | NULL |
+| Sudhanshu Rajdhur |     73 | UP       | BCA    | NULL |
++-------------------+--------+----------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE student SET age = 19;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> INSERT INTO student VALUES("Aditya Anand", 7, "Bihar", "BCA", 21);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM student ORDER BY name ASC;
++-------------------+--------+----------+--------+------+
+| name              | rollno | address  | course | age  |
++-------------------+--------+----------+--------+------+
+| Aditya Anand      |      7 | Bihar    | BCA    |   21 |
+| Karan             |     39 | Dehradun | BCA    |   19 |
+| Nikhil Swain      |     43 | Odisa    | BCA    |   19 |
+| Sudhanshu Rajdhur |     73 | UP       | BCA    |   19 |
++-------------------+--------+----------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> DROP TABLE user;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_example |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> ALTER TABLE student ADD semester INT(2);
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> SELECT * FROM student;
++-------------------+--------+----------+--------+------+----------+
+| name              | rollno | address  | course | age  | semester |
++-------------------+--------+----------+--------+------+----------+
+| Karan             |     39 | Dehradun | BCA    |   19 |     NULL |
+| Nikhil Swain      |     43 | Odisa    | BCA    |   19 |     NULL |
+| Sudhanshu Rajdhur |     73 | UP       | BCA    |   19 |     NULL |
+| Aditya Anand      |      7 | Bihar    | BCA    |   21 |     NULL |
++-------------------+--------+----------+--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE student DROP semester;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM student;
++-------------------+--------+----------+--------+------+
+| name              | rollno | address  | course | age  |
++-------------------+--------+----------+--------+------+
+| Karan             |     39 | Dehradun | BCA    |   19 |
+| Nikhil Swain      |     43 | Odisa    | BCA    |   19 |
+| Sudhanshu Rajdhur |     73 | UP       | BCA    |   19 |
+| Aditya Anand      |      7 | Bihar    | BCA    |   21 |
++-------------------+--------+----------+--------+------+
+4 rows in set (0.00 sec)
+```
+
+
+
+
+
 
 
