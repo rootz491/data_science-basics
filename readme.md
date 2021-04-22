@@ -308,7 +308,8 @@ print(ref[1,5])
 
 print(ref["A2:E6"])
 
-XLSX.readdata("/path/to/file.xlsx", "sheetname", "A2:E10
+
+XLSX.readdata("/path/to/file.xlsx", "sheetname", "A2:E10)
 
 using DataFrames
 
@@ -470,7 +471,88 @@ mysql> SELECT * FROM student;
 
 
 
+##	plotting
+
+package:	`Plots`
+
+*	use to plot values to graph in 2-D format!
+
+*	to draw graph:
+
+	1.	plot()
+	2.	bar()
 
 
+###	plot
+
+```julia
+using Pkg
+
+Pkg.add("Plots")
+
+using Plots
+
+x = 1:10
+
+y = rand(10, 2)
+
+plot(x, y, title="first line plot", label=["first" "second"], lw=4)
+
+xlabel!("X-AXIS")
+
+ylabel!("Y-AXIS")
+
+plot(x, y, seriestype=:scatter, title="First Line Plot")
+```
+
+###	bar
+
+*	also read: `plot1.jl`
+
+```julia
+
+bar(x, y)
+
+bar(data.x, data.y, legend=:topleft, label="India")
+
+```
+
+###	VegaLite & VegaDatasets
+
+>	PieChart
+
+```
+
+using Pkg
+
+Pkg.add("VegaLite")
+
+Pkg.add("VegaDatasets")
+
+using VegaLite
+
+party =["BJP", "RRS", "Congress"]
+seats = [123, 1231, 213]
+
+p = pie(party, seats)
+
+using VegaDataset
+
+carData = VegaDataset("car")
+
+#	print data in form of graph which will display in browser
+
+data |> @vlplot(:point, x=:colName, y=:colName2) |> display
+
+data |> @vlplot(:point, x=:colName, y=:colName2, column=:colName) |> display
+
+data |> @vlplot(:bar, x="count()", y=:colName2) |> display
+
+data |> @vlplot(:bar, x="average(colName)", y=:colName2) |> display
+```
+
+
+
+##	to get dataset through RDataset pkg
 
 
