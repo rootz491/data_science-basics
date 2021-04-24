@@ -521,7 +521,7 @@ bar(data.x, data.y, legend=:topleft, label="India")
 
 >	PieChart
 
-```
+```julia
 
 using Pkg
 
@@ -552,7 +552,15 @@ data |> @vlplot(:bar, x="average(colName)", y=:colName2) |> display
 ```
 
 
+## today we are solving a problem:
+>	like how to perform certain types of conditional queries to give dataset!
 
-##	to get dataset through RDataset pkg
+read [problem solving]("problemSolving.jl") to see how it's done.
+OR
+check out this file: `problemSolving.jl`
+
+
+
+
 
 
